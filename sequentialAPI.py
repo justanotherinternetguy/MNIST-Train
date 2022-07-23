@@ -39,7 +39,6 @@ test_x = test_x.reshape(-1, 784).astype('float32') / 255.0  # normalize to 0-1
 model = keras.Sequential([
     keras.Input(shape=(28*28)),
     layers.Dense(512, activation='relu'),
-    layers.Dense(256, activation='relu'),
     layers.Dense(10)  # output layer, 10 nodes for ints 0-9
 ])
 
