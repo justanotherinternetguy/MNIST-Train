@@ -1,6 +1,24 @@
 import os
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+"""
+MODEL SUMMARY:
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 512)               401920    
+_________________________________________________________________
+dense_1 (Dense)              (None, 256)               131328    
+_________________________________________________________________
+dense_2 (Dense)              (None, 10)                2570      
+=================================================================
+Total params: 535,818
+Trainable params: 535,818
+Non-trainable params: 0
+_________________________________________________________________
+"""
+
 
 import tensorflow as tf
 from tensorflow import keras
@@ -19,10 +37,16 @@ test_x = test_x.reshape(-1, 784).astype('float32') / 255.0  # normalize to 0-1
 # Sequential API in keras
 # not flexible - each NN layer has one in and one out
 model = keras.Sequential([
+    keras.Input(shape=(28*28)),
     layers.Dense(512, activation='relu'),
     layers.Dense(256, activation='relu'),
     layers.Dense(10)  # output layer, 10 nodes for ints 0-9
 ])
+
+# print(model.summary())
+# import sys
+# sys.exit()
+
 
 # compile and configure training part of NN
 model.compile(
