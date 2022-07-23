@@ -51,7 +51,7 @@ model = keras.Sequential([
 # compile and configure training part of NN
 model.compile(
     loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),  # loss calc
-    optimizer=keras.optimizers.Adam(learning_rate=0.0005),  # learning rate
+    optimizer=keras.optimizers.Adam(learning_rate=0.001),  # learning rate
     metrics=['accuracy'],
 )
 
