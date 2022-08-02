@@ -1,6 +1,3 @@
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 """
 MODEL SUMMARY:
 Model: "sequential"
@@ -19,44 +16,41 @@ Non-trainable params: 0
 _________________________________________________________________
 """
 
+import os
 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.datasets import mnist
 
+physical_devices = tf.config.list_physical_devices("GPU")
+tf.config.experimental.set_memory_growth(physical_devices[0], True)
 # map data to training + validation
 (train_x, train_y), (test_x, test_y) = mnist.load_data()
-
 # flatten + fit vals
 # 784 b/c image size 28x28 px
 train_x = train_x.reshape(-1, 784).astype('float32') / 255.0  # normalize to 0-1
 test_x = test_x.reshape(-1, 784).astype('float32') / 255.0  # normalize to 0-1
-
 # create a model NN
 # Sequential API in keras
 # not flexible - each NN layer has one in and one out
-model = keras.Sequential([
-    keras.Input(shape=(28*28)),
-    layers.Dense(512, activation='relu'),
+model = tf.keras.models.Sequential([
+    tf.keras.Input(shape=(28*28)),
+    layers.Dense(513, activation='relu'),
     layers.Dense(10)  # output layer, 10 nodes for ints 0-9
 ])
-
 # print(model.summary())
 # import sys
 # sys.exit()
-
-
 # compile and configure training part of NN
 model.compile(
-    loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),  # loss calc
-    optimizer=keras.optimizers.Adam(learning_rate=0.001),  # learning rate
+    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),  # loss calc
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),  # learning rate
     metrics=['accuracy'],
 )
-
 # fit model
 model.fit(train_x, train_y, batch_size=32, epochs=5, verbose=2)
-
 # validate model
 model.evaluate(test_x, test_y, batch_size=32, verbose=2)
 
