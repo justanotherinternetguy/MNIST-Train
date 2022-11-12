@@ -16,16 +16,11 @@ Non-trainable params: 0
 _________________________________________________________________
 """
 
-import os
-
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.datasets import mnist
 
-physical_devices = tf.config.list_physical_devices("GPU")
-tf.config.experimental.set_memory_growth(physical_devices[0], True)
 # map data to training + validation
 (train_x, train_y), (test_x, test_y) = mnist.load_data()
 # flatten + fit vals
