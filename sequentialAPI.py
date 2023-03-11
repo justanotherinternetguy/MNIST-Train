@@ -1,4 +1,5 @@
 """
+
 MODEL SUMMARY:
 Model: "sequential"
 _________________________________________________________________
@@ -14,6 +15,7 @@ Total params: 535,818
 Trainable params: 535,818
 Non-trainable params: 0
 _________________________________________________________________
+
 """
 
 import tensorflow as tf
